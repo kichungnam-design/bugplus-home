@@ -12,7 +12,7 @@ const solutions = [
     features: [
       '실시간 생산 모니터링 (Command Center)',
       'MRP 자동 계산 · 납기 준수율 향상',
-      '품질·불량 추적 · 수불장 · 재료비마감',
+      '품질·불량 추적 · 수불장 · 재료비/가공비 마감으로 실제원가 산출',
       'PCS (Partner\'s Collaboration System) 협력사 연계',
       '한/영/베트남어/중국어 4개국어 지원',
     ],
