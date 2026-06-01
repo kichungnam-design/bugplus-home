@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3400';
 
+const SOLUTION_OPTIONS = [
+  { value: '', label: '문의 솔루션 선택 (선택사항)' },
+  { value: 'BG-MES', label: '🏭 BG-MES — 제조관리 솔루션' },
+  { value: 'GemmaUI', label: '🛠️ B+ GemmaUI — 솔루션 개발 Tool' },
+  { value: 'pass-G', label: '📚 pass-G — 문제풀이 학습 솔루션' },
+  { value: 'AeroTest', label: '🚀 AeroTest — AI 테스트 자동화' },
+  { value: 'GemmaREthics', label: '🤖 Gemma R Ethics — 로봇 윤리 가드레일' },
+  { value: '기타/복수', label: '💬 기타 / 복수 솔루션 문의' },
+];
+
 export default function Contact() {
-  const [form, setForm]     = useState({ name: '', company: '', phone: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [form, setForm] = useState({
+    name: '', company: '', phone: '', email: '', solution: '', message: '',
+  });
+  const [status, setStatus] = useState('idle');
   const [errMsg, setErrMsg] = useState('');
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +33,6 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-
       if (data.success) {
         setStatus('success');
       } else {
@@ -74,14 +85,22 @@ export default function Contact() {
                 <span className="text-2xl mt-0.5">📍</span>
                 <div>
                   <div className="text-xs text-slate-500 mb-1">주소</div>
-                  <div>서울시 서대문구 세검정로1길 95<br/>117동 103호</div>
+                  <div>서울시 서대문구 세검정로1길 95<br />117동 103호</div>
                 </div>
               </div>
             </div>
 
+            {/* 솔루션 안내 */}
+            <div className="mt-8 bg-slate-700/50 border border-slate-600 rounded-xl p-4 text-sm text-slate-300 space-y-1.5">
+              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">문의 가능 솔루션</p>
+              {SOLUTION_OPTIONS.slice(1).map(s => (
+                <div key={s.value} className="text-xs">{s.label}</div>
+              ))}
+            </div>
+
             {/* 안내 박스 */}
-            <div className="mt-8 bg-sky-500/10 border border-sky-500/30 rounded-xl p-4 text-sm text-sky-300">
-              💬 문의 제출 시 입력하신 연락처로<br/>
+            <div className="mt-4 bg-sky-500/10 border border-sky-500/30 rounded-xl p-4 text-sm text-sky-300">
+              💬 문의 제출 시 입력하신 연락처로<br />
               Bug Plus 담당자 정보가 자동 발송됩니다.
             </div>
           </div>
@@ -93,17 +112,18 @@ export default function Contact() {
                 <div className="text-6xl mb-4">✅</div>
                 <p className="text-white font-bold text-xl mb-2">문의가 접수되었습니다!</p>
                 <p className="text-slate-400 text-sm">
-                  입력하신 번호로 Bug Plus 연락처가<br/>
+                  입력하신 번호로 Bug Plus 연락처가<br />
                   문자로 발송되었습니다.
                 </p>
                 <button
-                  onClick={() => { setStatus('idle'); setForm({ name:'', company:'', phone:'', email:'', message:'' }); }}
+                  onClick={() => { setStatus('idle'); setForm({ name:'', company:'', phone:'', email:'', solution:'', message:'' }); }}
                   className="mt-6 text-sky-400 text-sm underline">
                   다시 문의하기
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* 기본 입력 */}
                 {[
                   { name: 'name',    placeholder: '담당자명 *',  type: 'text' },
                   { name: 'company', placeholder: '회사명',       type: 'text' },
@@ -116,10 +136,27 @@ export default function Contact() {
                     placeholder={f.placeholder}
                     value={form[f.name]}
                     onChange={handleChange}
-                    required={['name','phone'].includes(f.name)}
+                    required={['name', 'phone'].includes(f.name)}
                     className="w-full bg-slate-900 border border-slate-600 focus:border-sky-500 text-white placeholder-slate-500 rounded-xl px-4 py-3 outline-none transition-colors text-sm"
                   />
                 ))}
+
+                {/* 솔루션 선택 드롭다운 */}
+                <select
+                  name="solution"
+                  value={form.solution}
+                  onChange={handleChange}
+                  className="w-full bg-slate-900 border border-slate-600 focus:border-sky-500 text-white rounded-xl px-4 py-3 outline-none transition-colors text-sm appearance-none cursor-pointer"
+                  style={{ colorScheme: 'dark' }}
+                >
+                  {SOLUTION_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}
+                      className="bg-slate-900 text-white">
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+
                 <textarea
                   name="message"
                   placeholder="문의 내용을 입력해 주세요 *"
@@ -129,9 +166,9 @@ export default function Contact() {
                   rows={4}
                   className="w-full bg-slate-900 border border-slate-600 focus:border-sky-500 text-white placeholder-slate-500 rounded-xl px-4 py-3 outline-none transition-colors resize-none text-sm"
                 />
-                {errMsg && (
-                  <p className="text-red-400 text-sm">{errMsg}</p>
-                )}
+
+                {errMsg && <p className="text-red-400 text-sm">{errMsg}</p>}
+
                 <button
                   type="submit"
                   disabled={status === 'loading'}

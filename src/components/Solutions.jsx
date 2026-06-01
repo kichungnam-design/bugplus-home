@@ -12,9 +12,9 @@ const solutions = [
     features: [
       '실시간 생산 모니터링 (Command Center)',
       'MRP 자동 계산 · 납기 준수율 향상',
-      '품질·불량 추적 · 수불장 관리',
-      '한국어 / 영어 / 베트남어 다국어 지원',
-      '가공비 마감 · ASM/ASP/MAT 창고 흐름',
+      '품질·불량 추적 · 수불장 · 재료비마감',
+      'PCS (Production Control System) 공정 제어',
+      '한/영/베트남어/중국어 4개국어 지원',
     ],
     color: 'sky',
   },
@@ -24,13 +24,13 @@ const solutions = [
     name: 'B+ GemmaUI',
     tag: '솔루션 개발 Tool',
     isNew: false,
-    updated: false,
-    desc: '복잡한 기업 시스템을 빠르게 구축하는 UI 개발 프레임워크. 표준화된 컴포넌트로 개발 시간을 획기적으로 단축합니다.',
+    updated: true,
+    desc: 'BG-MES 기반으로 설계된 기업용 UI 개발 프레임워크. 표준화된 컴포넌트로 복잡한 업무 시스템을 빠르게 구축합니다.',
     features: [
-      '표준 컴포넌트 라이브러리',
+      'BG-MES 기반 표준 컴포넌트 라이브러리',
       '메뉴·권한 통합 관리',
-      '빠른 커스터마이징',
-      'BG-MES 기반 설계',
+      '신규 구축 시 높은 커스터마이징 지원',
+      '다국어 i18n 내장 (한/영/베트남/중국어)',
     ],
     color: 'violet',
   },
@@ -59,10 +59,10 @@ const solutions = [
     updated: false,
     desc: 'AI가 테스트 스크립트를 자동 생성하고 실행·분석까지 처리하는 차세대 E2E 테스트 자동화 엔진. ISO 29119-5 기반의 키워드 드리븐 방식으로 품질을 보장합니다.',
     features: [
-      'Gemma Pen — AI 스크립트 자동 생성',
+      'Gemma Pen — AI E2E 스크립트 자동 생성',
       'Gemma Run — 실행 + AI 결과 분석',
+      'Secure Coding 점검 (KISA/CWE 기준)',
       'Perf Monitor — Prometheus 장기 모니터링',
-      'LLM 멀티 프로바이더 (Local/Gemini/OpenAI)',
       'ISO 29119-5 · ISTQB CT-TAE · POM 준수',
     ],
     color: 'amber',
@@ -87,47 +87,14 @@ const solutions = [
 ];
 
 const colorMap = {
-  sky:    {
-    badge: 'bg-sky-500/10 text-sky-400 border-sky-500/30',
-    border: 'border-sky-500/30',
-    btn: 'text-sky-400',
-    dot: 'bg-sky-400',
-    glow: 'hover:border-sky-400/60',
-  },
-  violet: {
-    badge: 'bg-violet-500/10 text-violet-400 border-violet-500/30',
-    border: 'border-violet-500/30',
-    btn: 'text-violet-400',
-    dot: 'bg-violet-400',
-    glow: 'hover:border-violet-400/60',
-  },
-  emerald: {
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-    border: 'border-emerald-500/30',
-    btn: 'text-emerald-400',
-    dot: 'bg-emerald-400',
-    glow: 'hover:border-emerald-400/60',
-  },
-  amber: {
-    badge: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
-    border: 'border-amber-500/30',
-    btn: 'text-amber-400',
-    dot: 'bg-amber-400',
-    glow: 'hover:border-amber-400/60',
-  },
-  rose: {
-    badge: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-    border: 'border-rose-500/30',
-    btn: 'text-rose-400',
-    dot: 'bg-rose-400',
-    glow: 'hover:border-rose-400/60',
-  },
+  sky:    { badge: 'bg-sky-500/10 text-sky-400 border-sky-500/30',     border: 'border-sky-500/30',     dot: 'bg-sky-400',     glow: 'hover:border-sky-400/60' },
+  violet: { badge: 'bg-violet-500/10 text-violet-400 border-violet-500/30', border: 'border-violet-500/30', dot: 'bg-violet-400', glow: 'hover:border-violet-400/60' },
+  emerald:{ badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30', border: 'border-emerald-500/30', dot: 'bg-emerald-400', glow: 'hover:border-emerald-400/60' },
+  amber:  { badge: 'bg-amber-500/10 text-amber-400 border-amber-500/30',  border: 'border-amber-500/30',  dot: 'bg-amber-400',  glow: 'hover:border-amber-400/60' },
+  rose:   { badge: 'bg-rose-500/10 text-rose-400 border-rose-500/30',    border: 'border-rose-500/30',    dot: 'bg-rose-400',   glow: 'hover:border-rose-400/60' },
 };
 
 export default function Solutions() {
-  const top3 = solutions.slice(0, 3);
-  const bottom2 = solutions.slice(3);
-
   return (
     <section id="solutions" className="bg-slate-900 py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -136,26 +103,24 @@ export default function Solutions() {
           <p className="text-sky-400 text-sm font-bold uppercase tracking-widest mb-3">Our Solutions</p>
           <h2 className="text-4xl font-black text-white">5대 핵심 솔루션</h2>
           <p className="text-slate-400 mt-4">Bug Plus의 기술력이 담긴 검증된 솔루션입니다</p>
-          <div className="flex items-center justify-center gap-4 mt-4">
+          <div className="flex items-center justify-center gap-5 mt-5">
             <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
-              NEW
+              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>NEW
             </span>
             <span className="flex items-center gap-1.5 text-xs text-amber-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
-              UPDATED
+              <span className="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>UPDATED
             </span>
           </div>
         </div>
 
         {/* 기존 3개 */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {top3.map(sol => <SolutionCard key={sol.id} sol={sol} />)}
+          {solutions.slice(0, 3).map(sol => <SolutionCard key={sol.id} sol={sol} />)}
         </div>
 
-        {/* 신규 2개 — 가운데 정렬 */}
+        {/* 신규 2개 */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {bottom2.map(sol => <SolutionCard key={sol.id} sol={sol} />)}
+          {solutions.slice(3).map(sol => <SolutionCard key={sol.id} sol={sol} />)}
         </div>
       </div>
     </section>
@@ -166,22 +131,14 @@ function SolutionCard({ sol }) {
   const c = colorMap[sol.color];
   return (
     <div className={`relative bg-slate-800 border ${c.border} ${c.glow} rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300`}>
-      {/* NEW / UPDATED 배지 */}
       {sol.isNew && (
-        <span className="absolute top-4 right-4 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-bold px-2.5 py-0.5 rounded-full">
-          NEW
-        </span>
+        <span className="absolute top-4 right-4 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-bold px-2.5 py-0.5 rounded-full">NEW</span>
       )}
       {sol.updated && !sol.isNew && (
-        <span className="absolute top-4 right-4 bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs font-bold px-2.5 py-0.5 rounded-full">
-          UPDATED
-        </span>
+        <span className="absolute top-4 right-4 bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs font-bold px-2.5 py-0.5 rounded-full">UPDATED</span>
       )}
-
       <div className="text-5xl mb-4">{sol.emoji}</div>
-      <div className={`inline-block border text-xs font-bold px-3 py-1 rounded-full mb-3 ${c.badge}`}>
-        {sol.tag}
-      </div>
+      <div className={`inline-block border text-xs font-bold px-3 py-1 rounded-full mb-3 ${c.badge}`}>{sol.tag}</div>
       <h3 className="text-white text-2xl font-black mb-3">{sol.name}</h3>
       <p className="text-slate-400 text-sm leading-relaxed mb-6">{sol.desc}</p>
       <ul className="space-y-2">
