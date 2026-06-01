@@ -15,12 +15,13 @@ export default function About() {
             제조 현장의 비효율, 개발자의 반복 작업, 수험생의 학습 어려움을 기술로 해소합니다.
           </p>
           <p className="text-slate-400 leading-relaxed">
-            '복잡함을 단순함으로' — 이 철학 하나로 BG-MES, GemmaUI, pass-G 세 가지 핵심 솔루션을 만들었습니다.
+            '복잡함을 단순함으로' — 이 철학 하나로 BG-MES, GemmaUI, pass-G, AeroTest, Gemma R Ethics
+            5가지 핵심 솔루션을 만들었습니다.
           </p>
 
           <div className="grid grid-cols-3 gap-6 mt-10">
             {[
-              { num: '3', label: '핵심 솔루션' },
+              { num: '5', label: '핵심 솔루션' },
               { num: '10+', label: '년 현장 경험' },
               { num: '100%', label: '커스터마이징' },
             ].map(item => (
